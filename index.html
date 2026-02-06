@@ -1,11 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="az">
 <head>
-  <meta charset="UTF-8">
-  <title>Mənim ilk saytım</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kənanın Dünyası</title>
+    <style>
+        /* Səhifənin əsas stili */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Arxa fondakı Matrix kətanı */
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Ortadakı Məlumat Kartı */
+        .card {
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.8); /* Şəffaf qara */
+            border: 2px solid #0F0; /* Neon yaşıl çərçivə */
+            padding: 40px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #0F0, 0 0 50px #0F0; /* Neon parıltı */
+            color: #0F0;
+            max-width: 400px;
+        }
+
+        .card h1 {
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .card p {
+            font-size: 1.2em;
+            color: #fff;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #0F0;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: white;
+            box-shadow: 0 0 15px white;
+        }
+    </style>
 </head>
 <body>
-  <h1>Salam 👋</h1>
-  <p>Bu mənim GitHub Pages ilə ilk saytım.</p>
+
+    <canvas id="matrix"></canvas>
+
+    <div class="card">
+        <h1>KƏNAN</h1>
+        <p>Gələcəyin Proqramçısı</p>
+        <p>Sistem yükləndi...</p>
+        <a href="https://github.com/kenanhuseynov629" class="btn">GitHub Profilim</a>
+    </div>
+
+    <script>
+        // Matrix Yağışı Skripti
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        // Ekran ölçüsünü tam edirik
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Matrix hərfləri (Katakana və Latın)
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const nums = '0123456789';
+        const alphabet = katakana + latin + nums;
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const rainDrops = [];
+
+        // Hər sütun üçün başlanğıc nöqtəsi (y koordinatı)
+        for( let x = 0; x < columns; x++ ) {
+            rainDrops[x] = 1;
+        }
+
+        const draw = () => {
+            // Arxa fonu azca qaraldırıq ki, iz qalsın
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0'; // Yaşıl rəng
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if(rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975){
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        };
+
+        // Animasiyanı işə salırıq
+        setInterval(draw, 30);
+
+        // Ekran ölçüsü dəyişəndə uyğunlaşdırmaq
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+
 </body>
 </html>
