@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Mənim ilk saytım</title>
+</head>
+<body>
+  <h1>Salam 👋</h1>
+  <p>Bu mənim GitHub Pages ilə ilk saytım.</p>
+</body>
+</html>
